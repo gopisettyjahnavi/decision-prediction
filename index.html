@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedPredict - AI Disease Prediction System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>🏥 MedPredict</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#prediction" class="nav-link">Prediction</a></li>
+                <li><a href="#tools" class="nav-link">Tools</a></li>
+                <li><a href="#tips" class="nav-link">Health Tips</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Advanced Disease Prediction System</h1>
+                <p>Get personalized health risk assessments using advanced algorithms and medical data analysis</p>
+                <button class="btn btn--primary btn--lg" onclick="scrollToSection('prediction')">Start Assessment</button>
+            </div>
+            <div class="hero-image">
+                <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/da72737af02e703c2b9f44d0a1375c66/cb95875e-1b6f-45fe-a0ce-152fccaae0b7/a0a56d9f.png" alt="Disease Prediction System" class="flowchart-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Available Predictions</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🩺</div>
+                    <h3>Diabetes Risk</h3>
+                    <p>Assess your risk of developing Type 2 diabetes based on lifestyle and health factors</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">❤</div>
+                    <h3>Heart Disease</h3>
+                    <p>Evaluate cardiovascular risk factors and get personalized heart health recommendations</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🫀</div>
+                    <h3>Hypertension</h3>
+                    <p>Check your blood pressure risk and learn about prevention strategies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prediction Section -->
+    <section id="prediction" class="prediction-section">
+        <div class="container">
+            <h2>Disease Risk Assessment</h2>
+            
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="diabetes">Diabetes</button>
+                <button class="tab-btn" data-tab="heart">Heart Disease</button>
+                <button class="tab-btn" data-tab="hypertension">Hypertension</button>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container hidden" id="progressContainer">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">Calculating risk...</span>
+            </div>
+
+            <!-- Diabetes Tab -->
+            <div class="tab-content active" id="diabetes">
+                <form id="diabetesForm" class="prediction-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="diabetesAge">Age</label>
+                            <input type="number" id="diabetesAge" class="form-control" min="18" max="100" required>
+                            <span class="error-message" id="diabetesAgeError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="diabetesBMI">BMI (kg/m²)</label>
+                            <input type="number" id="diabetesBMI" class="form-control" step="0.1" min="15" max="50" required>
+                            <span class="error-message" id="diabetesBMIError"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="diabetesGlucose">Fasting Blood Glucose (mg/dL)</label>
+                            <input type="number" id="diabetesGlucose" class="form-control" min="50" max="300" required>
+                            <span class="error-message" id="diabetesGlucoseError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="diabetesBP">Systolic Blood Pressure (mmHg)</label>
+                            <input type="number" id="diabetesBP" class="form-control" min="80" max="250" required>
+                            <span class="error-message" id="diabetesBPError"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="diabetesFamily">Family History of Diabetes</label>
+                            <select id="diabetesFamily" class="form-control" required>
+                                <option value="">Select...</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            <span class="error-message" id="diabetesFamilyError"></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Calculate Diabetes Risk</button>
+                </form>
+            </div>
+
+            <!-- Heart Disease Tab -->
+            <div class="tab-content" id="heart">
+                <form id="heartForm" class="prediction-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="heartAge">Age</label>
+                            <input type="number" id="heartAge" class="form-control" min="18" max="100" required>
+                            <span class="error-message" id="heartAgeError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="heartCholesterol">Total Cholesterol (mg/dL)</label>
+                            <input type="number" id="heartCholesterol" class="form-control" min="100" max="400" required>
+                            <span class="error-message" id="heartCholesterolError"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="heartBP">Systolic Blood Pressure (mmHg)</label>
+                            <input type="number" id="heartBP" class="form-control" min="80" max="250" required>
+                            <span class="error-message" id="heartBPError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="heartRate">Maximum Heart Rate (bpm)</label>
+                            <input type="number" id="heartRate" class="form-control" min="60" max="220" required>
+                            <span class="error-message" id="heartRateError"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="heartChestPain">Chest Pain Type</label>
+                            <select id="heartChestPain" class="form-control" required>
+                                <option value="">Select...</option>
+                                <option value="typical">Typical Angina</option>
+                                <option value="atypical">Atypical Angina</option>
+                                <option value="non-anginal">Non-Anginal Pain</option>
+                                <option value="asymptomatic">Asymptomatic</option>
+                            </select>
+                            <span class="error-message" id="heartChestPainError"></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Calculate Heart Disease Risk</button>
+                </form>
+            </div>
+
+            <!-- Hypertension Tab -->
+            <div class="tab-content" id="hypertension">
+                <form id="hypertensionForm" class="prediction-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="hyperAge">Age</label>
+                            <input type="number" id="hyperAge" class="form-control" min="18" max="100" required>
+                            <span class="error-message" id="hyperAgeError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="hyperWeight">Weight (kg)</label>
+                            <input type="number" id="hyperWeight" class="form-control" min="30" max="200" required>
+                            <span class="error-message" id="hyperWeightError"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="hyperHeight">Height (cm)</label>
+                            <input type="number" id="hyperHeight" class="form-control" min="120" max="250" required>
+                            <span class="error-message" id="hyperHeightError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="hyperSalt">Salt Intake</label>
+                            <select id="hyperSalt" class="form-control" required>
+                                <option value="">Select...</option>
+                                <option value="low">Low (< 2g/day)</option>
+                                <option value="moderate">Moderate (2-4g/day)</option>
+                                <option value="high">High (> 4g/day)</option>
+                            </select>
+                            <span class="error-message" id="hyperSaltError"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="hyperStress">Stress Level</label>
+                            <select id="hyperStress" class="form-control" required>
+                                <option value="">Select...</option>
+                                <option value="low">Low</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="high">High</option>
+                            </select>
+                            <span class="error-message" id="hyperStressError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="hyperExercise">Exercise Frequency</label>
+                            <select id="hyperExercise" class="form-control" required>
+                                <option value="">Select...</option>
+                                <option value="high">Daily (> 5 times/week)</option>
+                                <option value="moderate">Regular (3-5 times/week)</option>
+                                <option value="low">Rarely (< 3 times/week)</option>
+                            </select>
+                            <span class="error-message" id="hyperExerciseError"></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Calculate Hypertension Risk</button>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section hidden" id="resultsSection">
+                <div class="result-card">
+                    <h3>Risk Assessment Results</h3>
+                    <div class="risk-indicator">
+                        <div class="risk-level" id="riskLevel"></div>
+                        <div class="risk-percentage" id="riskPercentage"></div>
+                    </div>
+                    <div class="risk-breakdown">
+                        <h4>Risk Factor Analysis</h4>
+                        <div class="chart-container" style="position: relative; height: 300px;">
+                            <canvas id="riskChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="recommendations" id="recommendations">
+                        <h4>Personalized Recommendations</h4>
+                        <ul id="recommendationsList"></ul>
+                    </div>
+                    <div class="result-actions">
+                        <button class="btn btn--secondary" onclick="saveResult()">Save Result</button>
+                        <button class="btn btn--outline" onclick="resetForm()">New Assessment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools" class="tools-section">
+        <div class="container">
+            <h2>Health Tools</h2>
+            <div class="tools-grid">
+                <!-- Symptom Checker -->
+                <div class="tool-card">
+                    <h3>Symptom Checker</h3>
+                    <p>Check your symptoms and get preliminary health insights</p>
+                    <div class="symptom-checker">
+                        <h4>Select your symptoms:</h4>
+                        <div class="symptom-grid" id="symptomGrid">
+                            <!-- Symptoms will be populated by JavaScript -->
+                        </div>
+                        <button class="btn btn--primary" onclick="analyzeSymptoms()">Analyze Symptoms</button>
+                        <div class="symptom-results hidden" id="symptomResults">
+                            <h4>Possible Conditions:</h4>
+                            <div id="symptomAnalysis"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BMI Calculator -->
+                <div class="tool-card">
+                    <h3>BMI Calculator</h3>
+                    <p>Calculate your Body Mass Index and understand your weight status</p>
+                    <div class="bmi-calculator">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="bmiHeight">Height (cm)</label>
+                                <input type="number" id="bmiHeight" class="form-control" min="120" max="250">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="bmiWeight">Weight (kg)</label>
+                                <input type="number" id="bmiWeight" class="form-control" min="30" max="200">
+                            </div>
+                        </div>
+                        <button class="btn btn--primary" onclick="calculateBMI()">Calculate BMI</button>
+                        <div class="bmi-result hidden" id="bmiResult">
+                            <div class="bmi-value" id="bmiValue"></div>
+                            <div class="bmi-category" id="bmiCategory"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Tips Section -->
+    <section id="tips" class="tips-section">
+        <div class="container">
+            <h2>Health Tips & Guidelines</h2>
+            <div class="tips-grid">
+                <div class="tip-category">
+                    <h3>General Health</h3>
+                    <ul>
+                        <li>Maintain a balanced diet with fruits and vegetables</li>
+                        <li>Exercise regularly for at least 30 minutes daily</li>
+                        <li>Get adequate sleep (7-9 hours per night)</li>
+                        <li>Manage stress through relaxation techniques</li>
+                        <li>Stay hydrated by drinking plenty of water</li>
+                    </ul>
+                </div>
+                <div class="tip-category">
+                    <h3>Diabetes Prevention</h3>
+                    <ul>
+                        <li>Monitor blood sugar levels regularly</li>
+                        <li>Choose whole grains over refined carbohydrates</li>
+                        <li>Limit processed and sugary foods</li>
+                        <li>Maintain a healthy weight</li>
+                        <li>Schedule regular health checkups</li>
+                    </ul>
+                </div>
+                <div class="tip-category">
+                    <h3>Heart Health</h3>
+                    <ul>
+                        <li>Limit saturated fats and trans fats</li>
+                        <li>Include omega-3 rich foods in your diet</li>
+                        <li>Control cholesterol levels</li>
+                        <li>Quit smoking and limit alcohol consumption</li>
+                        <li>Manage blood pressure effectively</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="medical-ranges">
+                <h3>Normal Medical Ranges</h3>
+                <div class="ranges-grid">
+                    <div class="range-item">
+                        <strong>Blood Pressure:</strong> 120/80 mmHg
+                    </div>
+                    <div class="range-item">
+                        <strong>Blood Glucose:</strong> 70-100 mg/dL
+                    </div>
+                    <div class="range-item">
+                        <strong>Cholesterol:</strong> < 200 mg/dL
+                    </div>
+                    <div class="range-item">
+                        <strong>BMI:</strong> 18.5-24.9
+                    </div>
+                    <div class="range-item">
+                        <strong>Heart Rate:</strong> 60-100 bpm
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>About MedPredict</h2>
+            <div class="about-content">
+                <p>MedPredict is an advanced disease prediction system that uses evidence-based algorithms to assess your health risks. Our system analyzes multiple risk factors to provide personalized health insights and recommendations.</p>
+                
+                <div class="disclaimer">
+                    <h3>⚠ Important Disclaimer</h3>
+                    <p><strong>This tool is for educational and informational purposes only.</strong> It is not intended to replace professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare professionals for medical concerns. The predictions provided are based on statistical models and should not be used as the sole basis for medical decisions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 MedPredict. For educational purposes only. Always consult healthcare professionals for medical advice.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
